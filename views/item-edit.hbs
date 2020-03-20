@@ -1,0 +1,91 @@
+<div class="wrapper">
+  <h1>Редактировать {{title}}</h1>
+<form action="/catalog/edit" method="POST">
+  <div class="input-field">
+    <input id="title" name="title" type="text" class="validate" required value="{{title}}">
+    <label for="title">Название</label>
+    <span class="helper-text" data-error="Введите название"></span>
+  </div>
+
+  <div class="input-field">
+    <input id="price" name="price" type="number" class="validate" required min="1" value="{{price}}">
+    <label for="price">Цена</label>
+    <span class="helper-text" data-error="Введите цену"></span>
+  </div>
+
+<div class="input-field">
+    <input id="price" name="discountPrice" type="number" class="validate" required min="1" value="{{discountPrice}}">
+    <label for="price">Цена по скидке</label>
+    <span class="helper-text" data-error="Введите цену"></span>
+  </div>
+
+  <div class="input-field">
+    <input id="img0" name="img" type="text" class="validate" required value="{{img}}"> 
+    <label for="img0">URL маленькой картинки</label>
+    <span class="helper-text" data-error="Введите url картинки"></span>
+  </div>
+  
+  <div class="input-field">
+    <input id="img1" name="imgBig1" type="text" class="validate" value="{{imgBig1}}">
+    <label for="img1">URL большой картинки</label>
+    <span class="helper-text" data-error="Введите url картинки"></span>
+  </div>
+
+  <div class="input-field">
+    <input id="img2" name="imgBig2" type="text" class="validate" value="{{imgBig2}}">
+    <label for="img2">URL большой картинки</label>
+    <span class="helper-text" data-error="Введите url картинки"></span>
+  </div>
+
+  <div class="input-field">
+    <input id="img3" name="imgBig3" type="text" class="validate" value="{{imgBig3}}"> 
+    <label for="img3">URL большой картинки</label>
+    <span class="helper-text" data-error="Введите url картинки"></span>
+  </div>
+
+  <div class="input-field">
+    <input id="title" name="type" type="text" class="validate" required value="{{type}}">
+    <label for="title">Тип товара</label>
+    <span class="helper-text" data-error="Введите название"></span>
+  </div>
+
+  <div class="input-field">
+    <input id="quantity" name="quantity" type="number" class="validate" required min="1" value="{{quantity}}">
+    <label for="quantity">Количество</label>
+    <span class="helper-text" data-error="Введите количество"></span>
+  </div>
+
+  <div class="input-field">
+    <input id="description" name="description" type="text" class="validate" required value="{{description}}">
+    <label for="description">Описание</label>
+    <span class="helper-text" data-error="Введите описание"></span>
+  </div>
+
+  <div class="input-field">
+    <input id="production" name="production" type="text" class="validate" value="{{production}}">
+    <label for="production">Производитель</label>
+    <span class="helper-text" data-error="Введите производителя"></span>
+  </div>
+
+  <div class="input-field">
+    <input id="power" name="power" type="text" class="validate" value="{{power}}">
+    <label for="power">Питание</label>
+    <span class="helper-text" data-error="Введите питание"></span>
+  </div>
+
+  <div class="input-field">
+    <input id="totalBoughts" name="totalBoughts" type="number" class="validate" required min="0" value="{{totalBoughts}}">
+    <label for="totalBoughts">Количество покупок</label>
+    <span class="helper-text" data-error="Введите количество"></span>
+  </div>
+
+  <div class="input-field">
+    <input id="specifications" name="specifications" type="text" class="validate" value="{{specifications}}">
+    <label for="specifications">Характеристики</label>
+    <span class="helper-text" data-error="Введите характеристики"></span>
+  </div>
+  <input type="hidden" name="id" value="{{id}}">
+  <input type="hidden" name="_csrf" value="{{csrf}}">
+  <button type = "submit" class="btn-submit">Редактировать товар</button>
+</form>
+</div>

@@ -1,0 +1,25 @@
+<div class="wrapper">
+  <div class="row">
+      <h1>Войти в магазин</h1>
+        {{#if loginError}}
+        <p class="alert">{{loginError}}</p>
+      {{/if}}
+      <form action="/auth/login" method="POST">
+        <div class="input-field">
+          <input id="email" name="email" type="email" class="validate" required>
+          <label for="email">Email</label>
+          <span class="helper-text" data-error="Введите email"></span>
+        </div>
+
+        <div class="input-field">
+          <input id="password" name="password" type="password" class="validate" required>
+          <label for="password">Пароль</label>
+          <span class="helper-text" data-error="Введите пароль"></span>
+        </div>
+        <p><a href="/auth/reset" class = "user-block-link">Забыли пароль?</a></p>
+        <input type="hidden" name="_csrf" value="{{csrf}}">
+        <button class="btn-submit" type="submit">Войти</button>
+      </form>
+    </div>
+  </div>
+</div>

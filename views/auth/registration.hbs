@@ -1,0 +1,36 @@
+<div class="wrapper">
+  <div class="row">
+      <h1>Регистрация</h1>
+      {{#if registerError}}
+        <p class="alert">{{registerError}}</p>
+      {{/if}}
+      <form action="/auth/registration" method="POST" novalidate>
+        <div class="input-field">
+          <input id="email" name="email" type="email" class="validate" required>
+          <label for="email">Email</label>
+          <span class="helper-text" data-error="Введите email"></span>
+        </div>
+
+        <div class="input-field">
+          <input id="password" name="password" type="password" class="validate" required>
+          <label for="password">Пароль</label>
+          <span class="helper-text" data-error="Введите пароль"></span>
+        </div>
+
+        <div class="input-field">
+          <input id="confirm" name="confirm" type="password" class="validate" required>
+          <label for="confirm">Пароль еще раз</label>
+          <span class="helper-text" data-error="Введите пароль"></span>
+        </div>
+
+        <div class="input-field">
+          <input id="name" name="name" type="text" class="validate" required>
+          <label for="name">Имя</label>
+          <span class="helper-text" data-error="Введите имя"></span>
+        </div>
+        <input type="hidden" name="_csrf" value="{{csrf}}">
+        <button class="btn-submit" type="submit">Зарегистрироваться</button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+<div class="wrapper">
+  <h1 class="item-title">{{title}}</h1>
+  <div class="item-container">
+    <div class="item-foto">
+      <img src={{imgBig1}} alt={{title}} width="150" height="100">
+      <img src={{imgBig2}} alt={{title}} width="150" height="100">
+      <img src={{imgBig3}} alt={{title}} width="150" height="100">
+    </div>
+    <div class="item-price">
+      <p>Цена в розничной сети: {{price}} р.</p>
+      <hr>
+      <p class="price">Цена в интернет магазине: {{discountPrice}} р.</p>
+      <form action="/cart/add" method="POST" class="price-form">
+        <input type="hidden" name="id" value="{{id}}">
+        <input type="hidden" name="_csrf" value="{{csrf}}">
+        <button type="submit" class="btn-submit">В корзину</button>
+      </form>
+      <form action="/cart/add" method="POST" class="price-form">
+        <input type="hidden" name="id" value="{{id}}">
+        <input type="hidden" name="_csrf" value="{{csrf}}">
+        <button type="submit" class="btn-submit">В закладки</button>
+      </form>
+      <div class = "item-delivery">
+        <p>Самовывоз сегодня</p>
+        <p>Доставка завтра</p>
+      </div>
+      <p>12 мес. гарантии</p>
+    </div>
+    <div class="item-specification">
+      <h3>Основные характеристики</h3>
+        <p>{{parameter1}}</p>
+        <p>{{parameter2}}</p>
+        <p>{{parameter3}}</p>
+    </div>
+  </div>
+  <p>{{description}}</p>
+  {{#if isAdmin}}
+    <section class="catalog3">
+      <a class="admin-button" href="/catalog/{{id}}/edit">Редактировать товар</a>
+      <form action="/catalog/remove" method="POST">
+        <input type="hidden" name="_csrf" value="{{csrf}}">
+        <input type="hidden" name="id" value="{{id}}">
+        <button class="admin-button">Удалить товар</button>
+      </form>
+    </section>
+  {{/if}}
+</div>

@@ -1,0 +1,42 @@
+<div class="wrapper">
+  <h1>Корзина</h1>
+  {{#if items.length}}
+  <table class="cart">
+    <thead>
+      <tr>
+        <th>Название</th>
+        <th>Количество</th>
+        <th>Цена за ед.</th>
+        <th>Стоимость</th>
+        <th>Действия</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      {{#each items}}
+      <tr>
+        <td>{{this.title}}</td>
+        <td>{{count}}</td>
+        <td>{{this.discountPrice}}</td>
+        <td>{{this.totalprice}}</td>
+        <td>
+          <form action="/cart/remove" method="POST">
+            <input type="hidden" name="id" value="{{this._id}}">
+            <input type="hidden" name="_csrf" value="{{@root.csrf}}">
+            <button class="admin-button">Удалить товар</button>
+          </form>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  <p><strong>Итого:</strong> <span class="price">{{price}}</span></p>
+  <form action="/orders" method="POST">
+    <input type="hidden" name="_csrf" value="{{csrf}}">
+    <button type="submit" class="btn-submit">Сделать заказ</button>
+  </form>
+{{else}}
+  <p>Корзина пуста</p>
+{{/if}}
+</div>

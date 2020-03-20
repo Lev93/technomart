@@ -1,0 +1,150 @@
+    <main>
+        <div class="container">
+            <ul class="breadcrumbs">
+                <li>
+                    <a class="breadcrumbs-item icon-home" href="/index">Главная</a>
+                </li>
+                <li>
+                    <a class="breadcrumbs-item" href="/catalog">Каталог</a>
+                </li>
+                <li>
+                    <a class="breadcrumbs-item" href="#">Инструмент</a>
+                </li>
+                <li>
+                    <span class="breadcrumbs-item">Перфораторы</span>
+                </li>
+            </ul>
+            <section class="catalog2">
+                <header class="page-header">
+                    <h1 class="page-title">Перфораторы</h1>
+                </header>
+                <div class="main-part">
+                    <section class="catalog-filter">
+                        <header class="filter-header">
+                            <h2 class="filter-header-title">Фильтр:</h2>
+                        </header>
+                        <form action="#" method="get">
+                            <fieldset class="filter filter-price">
+                                <h3 class="filter-title-h3">Цена:</h3>
+                                <div class="range-controls">
+                                    <div class="scale">
+                                        <div class="bar"></div>
+                                    </div>
+                                    <div class="toggle toggle-min">
+                                        <span class="visually-hidden">Ползунок влево</span>
+                                    </div>
+                                    <div class="toggle toggle-max">
+                                        <span class="visually-hidden">Ползунок влево</span>
+                                    </div>
+                                </div>
+                                <div class="price-controls">
+                                    <label class="price-controls-min" for="price-controls-min">
+                                        <input id="price-controls-min" type="text" value="0">
+                                    </label>
+                                    <label class="price-controls-max" for="price-controls-max">
+                                        <input id="price-controls-max" type="text" value="30 000">
+                                    </label>
+                                </div>
+                            </fieldset>
+                            <fieldset class="filter filter-brands">
+                                <legend class="filter-title">Производители</legend>
+                                <input class="filer-brands-checkbox visually-hidden" id="checkbox-1" type="checkbox" name="checkbox" value="bosch" checked>
+                                <label class="filter-brands-item" for="checkbox-1">Bosch</label>
+                                <input class="filer-brands-checkbox visually-hidden" id="checkbox-2" type="checkbox" name="checkbox" value="interscol">
+                                <label class="filter-brands-item" for="checkbox-2">Интерскол</label>
+                                <input class="filer-brands-checkbox visually-hidden" id="checkbox-3" type="checkbox" name="checkbox" value="makita" checked>
+                                <label class="filter-brands-item" for="checkbox-3">Makita</label>
+                                <input class="filer-brands-checkbox visually-hidden" id="checkbox-4" type="checkbox" name="checkbox" value="dewalt">
+                                <label class="filter-brands-item" for="checkbox-4">Dewalt</label>
+                                <input class="filer-brands-checkbox visually-hidden" id="checkbox-5" type="checkbox" name="checkbox" value="hitachi">
+                                <label class="filter-brands-item" for="checkbox-5">Hitachi</label>
+                            </fieldset>
+                            <fieldset class="filter filter-supply">
+                                <legend class="filter-title">Питание</legend>
+                                <input class="filter-supply-radio visually-hidden" id="radio-1" type="radio" name="radiogroup" value="battery" checked>
+                                <label class="filter-supply-item" for="radio-1">Аккумуляторные</label>
+                                <input class="filter-supply-radio visually-hidden" id="radio-2" type="radio" name="radiogroup" value="mains">
+                                <label class="filter-supply-item" for="radio-2">Сетевые</label>
+                            </fieldset>
+                            <button class="catalog-btn" type="submit">Показать</button>
+                        </form>
+                    </section>
+                    <section class="catalog-gallery">
+                        <header class="filter-header-2">
+                            <h2 class="filter-header-title-2">
+                           Сортировка:
+                        </h2>
+                            <div class="sort-list">
+                                <a class="sort-item sort-item-active" href="#">По цене</a>
+                                <a class="sort-item" href="#">По типу</a>
+                                <a class="sort-item" href="#">По функционалу</a>
+                            </div>
+                            <div class="sort-direction">
+                                <a class="icon-up-dir sort-up-active" href="#">Вверх</a>
+                                <a class="icon-down-dir sort-down--active" href="#">Вниз</a>
+                            </div>
+                        </header>
+                        <section class="catalog-products">
+                            {{#if items.length}}
+                              {{#each items}}
+                            <article class="product-card">
+                                {{#if new}}
+                                <div class="flag-new"></div>
+                                {{/if}}
+                                <div class="product-card-actions">
+                                    <form action="/cart/add" method="POST">
+                                      <input type="hidden" name="id" value="{{id}}">
+                                      <input type="hidden" name="_csrf" value="{{@root.csrf}}">
+                                      <button type="submit" class="buy">Купить</button>
+                                    </form>
+                                    <a href="#" class="product-bookmark">В закладки</a>
+                                </div>
+                                <div class="product-card-image">
+                                    <img src="{{this.img}}" alt="{{this.title}}" width="218" height="170">
+                                </div>
+                                <a href="/catalog/{{id}}" class="product-card-title">{{this.title}}</a>
+                                <div class="product-card-discount">{{this.price}} р.</div>
+                                <div class="product-card-price">{{this.discountPrice}} р.</div>
+                            </article>
+                            {{/each}}
+                            {{else}}
+                            <p>Товары не найдены</p>
+                            {{/if}}
+                        </section>
+                        <div class="catalog-paginator">
+                            <span class="paginator-link-current">1</span>
+                            <a class="paginator-link" href="#">2</a>
+                            <a class="paginator-link" href="#">3</a>
+                            <a class="paginator-link-next" href="#">Следующая</a>
+                        </div>
+                    </section>
+                </div>
+            </section>
+        </div>
+        {{#if isAdmin}}
+          <section class="catalog2">
+            <a class="paginator-link add-item" href="/catalog/add">Добавить товар</a>
+          </section>
+        {{/if}}
+        <section class="catalog-promo">
+            <div class="container-center wrapper">
+                <h2 class="page-title catalog-promo-title">Пара слов о перфораторах</h2>
+                <p class="page-text">
+                    Перфоратор — универсальный строительный инструмент. Предназначен для сверления и долбления отверстий в кирпиче, бетоне и камне.
+                </p>
+                <p class="page-text">
+                    Существуют электромеханические и пневматические перфораторы. Современные модели могут выполнять функции дрели, шуруповерта и отбойного молотка. В ассортиментном ряду есть выбор «трехрежимников»: в одном устройстве будут совмещены отбойный молоток и ударная дрель.
+                </p>
+            </div>
+        </section>
+    </main>
+    <div class="modal-cart popup">
+        <button class="popup-close modal-cart-close"><span class="visually-hidden">закрыть</span></button>
+        <div class="modal-cart-content">
+            <p class="modal-cart-text">Товар добавлен в корзину!</p>
+        </div>
+        <div class="modal-cart-footer">
+            <button class="modal-cart-btn" type="submit" name="send">Оформить заказ</button>
+            <a class="modal-cart-close-btn" href="#">Продолжить покупки</a>
+        </div>
+    </div>
