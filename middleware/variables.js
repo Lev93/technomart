@@ -7,6 +7,8 @@ module.exports = async function(req, res, next) {
         req.session.user = await User.findOne({ _id: req.session.user._id })
         res.locals.userName = req.session.user.name
     } 
-    res.locals.cart = req.session.user.cart.items.length
+    if (req.session.user) {
+        res.locals.cart = req.session.user.cart.items.length
+    }
     next()
 }
