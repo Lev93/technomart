@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server",
+    "start": "node index.js",
     "dev": "nodemon index.js",
     "build": "cross-env NODE_ENV=production npx webpack",
     "eslint": "eslint ."
