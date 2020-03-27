@@ -10,16 +10,8 @@
       <p>Цена в розничной сети: {{price}} р.</p>
       <hr>
       <p class="price">Цена в интернет магазине: {{discountPrice}} р.</p>
-      <form action="/cart/add" method="POST" class="price-form">
-        <input type="hidden" name="id" value="{{id}}">
-        <input type="hidden" name="_csrf" value="{{csrf}}">
-        <button type="submit" class="btn-submit">В корзину</button>
-      </form>
-      <form action="/cart/add" method="POST" class="price-form">
-        <input type="hidden" name="id" value="{{id}}">
-        <input type="hidden" name="_csrf" value="{{csrf}}">
-        <button type="submit" class="btn-submit">В закладки</button>
-      </form>
+      <button type="button" class="buy" data-id="{{id}}" data-csrf="{{csrf}}">Купить</button>
+      <button type="button" class="product-bookmark" data-id="{{id}}" data-csrf="{{csrf}}">В закладки</button>
       <div class = "item-delivery">
         <p>Самовывоз сегодня</p>
         <p>Доставка завтра</p>
@@ -45,3 +37,13 @@
     </section>
   {{/if}}
 </div>
+    <div class="modal-cart popup">
+        <button class="popup-close modal-cart-close"><span class="visually-hidden">закрыть</span></button>
+        <div class="modal-cart-content">
+            <p class="modal-cart-text">Товар добавлен в корзину!</p>
+        </div>
+        <div class="modal-cart-footer">
+            <a class="modal-cart-btn" href="/cart">Оформить заказ</a>
+            <a class="modal-cart-close-btn" href="#">Продолжить покупки</a>
+        </div>
+    </div>

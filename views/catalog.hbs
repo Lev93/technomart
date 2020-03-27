@@ -1,71 +1,174 @@
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+{{#if minprice}}
+  $( function() {
+    $( "#slider-range" ).slider({
+      range: true,
+      min: 0,
+      max: 40000,
+      values: [ {{minprice}}, {{maxprice}} ],
+      slide: function( event, ui ) {
+        $( "#amount" ).val( "Руб." + ui.values[ 0 ] + " - Руб." + ui.values[ 1 ] );
+      }
+    });
+    $( "#amount" ).val( "Руб." + $( "#slider-range" ).slider( "values", 0 ) +
+      " - Руб." + $( "#slider-range" ).slider( "values", 1 ) );
+  } );
+{{else}}
+  $( function() {
+    $( "#slider-range" ).slider({
+      range: true,
+      min: 0,
+      max: 40000,
+      values: [ 0, 40000 ],
+      slide: function( event, ui ) {
+        $( "#amount" ).val( "Руб." + ui.values[ 0 ] + " - Руб." + ui.values[ 1 ] );
+      }
+    });
+    $( "#amount" ).val( "Руб." + $( "#slider-range" ).slider( "values", 0 ) +
+      " - Руб." + $( "#slider-range" ).slider( "values", 1 ) );
+  } );
+{{/if}}
+  </script>
     <main>
         <div class="container">
             <ul class="breadcrumbs">
-                <li>
-                    <a class="breadcrumbs-item icon-home" href="/index">Главная</a>
-                </li>
-                <li>
-                    <a class="breadcrumbs-item" href="/catalog">Каталог</a>
-                </li>
-                <li>
-                    <a class="breadcrumbs-item" href="#">Инструмент</a>
-                </li>
-                <li>
-                    <span class="breadcrumbs-item">Перфораторы</span>
-                </li>
+                <li><a class="breadcrumbs-item icon-home" href="/index">Главная</a></li>
+                <li><a class="breadcrumbs-item" href="/catalog">Каталог</a></li>
+                {{#if tools}}
+                <li><span class="breadcrumbs-item">Инструмент</span> </li>
+                {{/if}}
+                {{#if tech}}
+                <li><span class="breadcrumbs-item">Техника</span> </li>
+                {{/if}}
+                {{#if materials}}
+                <li><span class="breadcrumbs-item">Материалы</span> </li>
+                {{/if}}
+                {{#if perforator}}
+                <li><a class="breadcrumbs-item" href="/catalog?category=инструмент">Инструмент</a></li>
+                <li><span class="breadcrumbs-item">Перфораторы</span> </li>    
+                {{/if}}
+                {{#if drell}}
+                <li><a class="breadcrumbs-item" href="/catalog?category=инструмент">Инструмент</a></li>
+                <li><span class="breadcrumbs-item">Дрели</span> </li>    
+                {{/if}}
+                {{#if bolgarka}}
+                <li><a class="breadcrumbs-item" href="/catalog?category=инструмент">Инструмент</a></li>
+                <li><span class="breadcrumbs-item">Болгарки</span> </li>    
+                {{/if}}                                 
             </ul>
             <section class="catalog2">
                 <header class="page-header">
+                    {{#if main}}
+                    <h1 class="page-title">Каталог</h1>
+                    <p>Выберите категорию:</p>
+                    <ul>
+                      <li><a href="/catalog?category=материал" class="breadcrumbs-item">Материалы</a></li>
+                      <li><a href="/catalog?category=техника" class="breadcrumbs-item">Техника</a></li>
+                      <li><a href="/catalog?category=инструмент" class="breadcrumbs-item">Инструмент</a></li>
+                    </ul>
+                    {{else}}
+                      {{#if tools}}
+                    <h1 class="page-title">Инструмент</h1>
+                    <p>Выберите подкатегорию:</p>
+                    <ul>
+                      <li><a href="/catalog?category=перфоратор" class="breadcrumbs-item">Перфораторы</a></li>
+                      <li><a href="/catalog?category=дрель" class="breadcrumbs-item">Дрели</a></li>
+                      <li><a href="/catalog?category=болгарка" class="breadcrumbs-item">Болгарки</a></li>
+                    </ul>
+                      {{/if}}
+                      {{#if tech}}
+                    <h1 class="page-title">Техника</h1>
+                      {{/if}}
+                      {{#if materials}}
+                    <h1 class="page-title">Метериалы</h1>
+                      {{/if}}
+                      {{#if perforator}}
                     <h1 class="page-title">Перфораторы</h1>
+                      {{/if}}
+                      {{#if bolgarka}}
+                    <h1 class="page-title">Болгарки</h1>
+                      {{/if}}
+                      {{#if drell}}
+                    <h1 class="page-title">Дрели</h1>
+                      {{/if}}                      
+                    {{/if}}
                 </header>
                 <div class="main-part">
                     <section class="catalog-filter">
                         <header class="filter-header">
                             <h2 class="filter-header-title">Фильтр:</h2>
                         </header>
-                        <form action="#" method="get">
+                        <form action="/catalog/filter" method="post" id="catalogform">
                             <fieldset class="filter filter-price">
                                 <h3 class="filter-title-h3">Цена:</h3>
-                                <div class="range-controls">
-                                    <div class="scale">
-                                        <div class="bar"></div>
-                                    </div>
-                                    <div class="toggle toggle-min">
-                                        <span class="visually-hidden">Ползунок влево</span>
-                                    </div>
-                                    <div class="toggle toggle-max">
-                                        <span class="visually-hidden">Ползунок влево</span>
-                                    </div>
-                                </div>
-                                <div class="price-controls">
-                                    <label class="price-controls-min" for="price-controls-min">
-                                        <input id="price-controls-min" type="text" value="0">
-                                    </label>
-                                    <label class="price-controls-max" for="price-controls-max">
-                                        <input id="price-controls-max" type="text" value="30 000">
-                                    </label>
-                                </div>
+                                  <p>
+                                    <label for="amount">Цены:</label>
+                                    <input type="text" id="amount" name="prices" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                                  </p>
+ 
+                                <div id="slider-range"></div>
                             </fieldset>
                             <fieldset class="filter filter-brands">
                                 <legend class="filter-title">Производители</legend>
-                                <input class="filer-brands-checkbox visually-hidden" id="checkbox-1" type="checkbox" name="checkbox" value="bosch" checked>
+                                {{#if bosch}}
+                                <input class="filer-brands-checkbox visually-hidden" id="checkbox-1" type="checkbox" name="production" value="BOSCH" checked>
+                                {{else}}
+                                <input class="filer-brands-checkbox visually-hidden" id="checkbox-1" type="checkbox" name="production" value="BOSCH">
+                                {{/if}}
                                 <label class="filter-brands-item" for="checkbox-1">Bosch</label>
-                                <input class="filer-brands-checkbox visually-hidden" id="checkbox-2" type="checkbox" name="checkbox" value="interscol">
+                                {{#if interscol}}
+                                <input class="filer-brands-checkbox visually-hidden" id="checkbox-2" type="checkbox" name="production" value="INTERSCOL" checked>
+                                {{else}}
+                                <input class="filer-brands-checkbox visually-hidden" id="checkbox-2" type="checkbox" name="production" value="INTERSCOL">
+                                {{/if}}
                                 <label class="filter-brands-item" for="checkbox-2">Интерскол</label>
-                                <input class="filer-brands-checkbox visually-hidden" id="checkbox-3" type="checkbox" name="checkbox" value="makita" checked>
+                                {{#if makita}}
+                                <input class="filer-brands-checkbox visually-hidden" id="checkbox-3" type="checkbox" name="production" value="MAKITA" checked>
+                                {{else}}
+                                <input class="filer-brands-checkbox visually-hidden" id="checkbox-3" type="checkbox" name="production" value="MAKITA">
+                                {{/if}}
                                 <label class="filter-brands-item" for="checkbox-3">Makita</label>
-                                <input class="filer-brands-checkbox visually-hidden" id="checkbox-4" type="checkbox" name="checkbox" value="dewalt">
+                                {{#if dewalt}}
+                                <input class="filer-brands-checkbox visually-hidden" id="checkbox-4" type="checkbox" name="production" value="DEWALT" checked>
+                                {{else}}
+                                <input class="filer-brands-checkbox visually-hidden" id="checkbox-4" type="checkbox" name="production" value="DEWALT">
+                                {{/if}}
                                 <label class="filter-brands-item" for="checkbox-4">Dewalt</label>
-                                <input class="filer-brands-checkbox visually-hidden" id="checkbox-5" type="checkbox" name="checkbox" value="hitachi">
+                                {{#if hitachi}}
+                                <input class="filer-brands-checkbox visually-hidden" id="checkbox-5" type="checkbox" name="production" value="HITACHI" checked>
+                                {{else}}
+                                <input class="filer-brands-checkbox visually-hidden" id="checkbox-5" type="checkbox" name="production" value="HITACHI">
+                                {{/if}}
                                 <label class="filter-brands-item" for="checkbox-5">Hitachi</label>
                             </fieldset>
                             <fieldset class="filter filter-supply">
                                 <legend class="filter-title">Питание</legend>
-                                <input class="filter-supply-radio visually-hidden" id="radio-1" type="radio" name="radiogroup" value="battery" checked>
+                                {{#if power220}}
+                                <input class="filter-supply-radio visually-hidden" id="radio-1" type="radio" name="power" value="аккамуляторный">
                                 <label class="filter-supply-item" for="radio-1">Аккумуляторные</label>
-                                <input class="filter-supply-radio visually-hidden" id="radio-2" type="radio" name="radiogroup" value="mains">
+                                <input class="filter-supply-radio visually-hidden" id="radio-2" type="radio" name="power" value="сетевой" checked>
                                 <label class="filter-supply-item" for="radio-2">Сетевые</label>
+                                {{else}}
+                                  {{#if poweracc}}
+                                <input class="filter-supply-radio visually-hidden" id="radio-1" type="radio" name="power" value="аккамуляторный" checked>
+                                <label class="filter-supply-item" for="radio-1">Аккумуляторные</label>
+                                <input class="filter-supply-radio visually-hidden" id="radio-2" type="radio" name="power" value="сетевой">
+                                <label class="filter-supply-item" for="radio-2">Сетевые</label>
+                                  {{else}}
+                                <input class="filter-supply-radio visually-hidden" id="radio-1" type="radio" name="power" value="аккамуляторный">
+                                <label class="filter-supply-item" for="radio-1">Аккумуляторные</label>
+                                <input class="filter-supply-radio visually-hidden" id="radio-2" type="radio" name="power" value="сетевой">
+                                <label class="filter-supply-item" for="radio-2">Сетевые</label>
+                                  {{/if}}
+                                {{/if}}
                             </fieldset>
+                            <input id="csrf" type="hidden" name="_csrf" value="{{csrf}}">
+                            <input id="sort" type="hidden" name="sorttype" value="{{sort}}">
+                            <input id="category" type="hidden" name="category" value="{{category}}">
+                            <input id="pagenumber" type="hidden" name="pagenumber" value="{{pagenumber}}">
                             <button class="catalog-btn" type="submit">Показать</button>
                         </form>
                     </section>
@@ -75,13 +178,33 @@
                            Сортировка:
                         </h2>
                             <div class="sort-list">
-                                <a class="sort-item sort-item-active" href="#">По цене</a>
-                                <a class="sort-item" href="#">По типу</a>
-                                <a class="sort-item" href="#">По функционалу</a>
+                                {{#if sortPrice}}
+                                <a class="sort-item sort-item-active" href="#" id="sortprice">По цене</a>
+                                {{else}}
+                                <a class="sort-item" href="#" id="sortprice">По цене</a>
+                                {{/if}}
+                                {{#if sortPopularity}}
+                                <a class="sort-item sort-item-active" href="#" id="sortpopularity">По популярности</a>
+                                {{else}}
+                                <a class="sort-item" href="#" id="sortpopularity">По популярности</a>
+                                {{/if}}
+                                {{#if sortType}}
+                                <a class="sort-item sort-item-active" href="#" id="sorttype">По типу</a>
+                                {{else}}
+                                <a class="sort-item" href="#" id="sorttype">По типу</a
+                                {{/if}}
                             </div>
                             <div class="sort-direction">
-                                <a class="icon-up-dir sort-up-active" href="#">Вверх</a>
-                                <a class="icon-down-dir sort-down--active" href="#">Вниз</a>
+                                {{#if up}}
+                                <a class="icon-up-dir sort-up-active" id="up" href="#">Вверх</a>
+                                {{else}}
+                                <a class="icon-up-dir" id="up" href="#">Вверх</a>
+                                {{/if}}
+                                {{#if down}}
+                                <a class="icon-down-dir sort-down-active" id="down" href="#">Вниз</a>
+                                {{else}}
+                                <a class="icon-down-dir" id="down" href="#">Вниз</a>
+                                {{/if}}
                             </div>
                         </header>
                         <section class="catalog-products">
@@ -92,12 +215,8 @@
                                 <div class="flag-new"></div>
                                 {{/if}}
                                 <div class="product-card-actions">
-                                    <form action="/cart/add" method="POST">
-                                      <input type="hidden" name="id" value="{{id}}">
-                                      <input type="hidden" name="_csrf" value="{{@root.csrf}}">
-                                      <button type="submit" class="buy">Купить</button>
-                                    </form>
-                                    <a href="#" class="product-bookmark">В закладки</a>
+                                  <button type="button" class="buy" data-id="{{id}}" data-csrf="{{@root.csrf}}">Купить</button>
+                                  <button type="button" class="product-bookmark" data-id="{{id}}" data-csrf="{{@root.csrf}}">В закладки</button>
                                 </div>
                                 <div class="product-card-image">
                                     <img src="{{this.img}}" alt="{{this.title}}" width="218" height="170">
@@ -108,14 +227,34 @@
                             </article>
                             {{/each}}
                             {{else}}
-                            <p>Товары не найдены</p>
+                            <p class = "page-text">Товары не найдены</p>
                             {{/if}}
                         </section>
                         <div class="catalog-paginator">
-                            <span class="paginator-link-current">1</span>
-                            <a class="paginator-link" href="#">2</a>
-                            <a class="paginator-link" href="#">3</a>
-                            <a class="paginator-link-next" href="#">Следующая</a>
+                            {{#if firstpage}}
+                              {{#if firstpageactive}}
+                            <span class="paginator-link-current" id="firstpage">1</span>
+                              {{else}}
+                            <a class="paginator-link" href="#" id="firstpage">1</a>
+                            {{/if}}
+                            {{/if}}
+                            {{#if secondpage}}
+                            {{#if secondpageactive}}
+                            <span class="paginator-link-current" id="secondpage">2</span>
+                            {{else}}
+                            <a class="paginator-link" href="#" id="secondpage">2</a>
+                            {{/if}}                            
+                            {{/if}}
+                            {{#if thirdpage}}
+                            {{#if thirdpageactive}}
+                            <span class="paginator-link-current" id="thirdpage">3</span>
+                            {{else}}
+                            <a class="paginator-link" href="#" id="thirdpage">3</a>
+                            {{/if}}  
+                            {{/if}}
+                            {{#if secondpage}}
+                            <a class="paginator-link-next" href="#" id="nextpage">Следующая</a>
+                            {{/if}}
                         </div>
                     </section>
                 </div>
@@ -144,7 +283,7 @@
             <p class="modal-cart-text">Товар добавлен в корзину!</p>
         </div>
         <div class="modal-cart-footer">
-            <button class="modal-cart-btn" type="submit" name="send">Оформить заказ</button>
+            <a class="modal-cart-btn" href="/cart">Оформить заказ</a>
             <a class="modal-cart-close-btn" href="#">Продолжить покупки</a>
         </div>
     </div>

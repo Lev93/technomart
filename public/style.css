@@ -1548,9 +1548,16 @@
      line-height: 18px;
      font-family: "PT Sans", "Arial", sans-serif;
      margin: 0;
-     margin-right: 120px;
+     margin-right: 90px;
      text-transform: uppercase;
 }
+
+.sort-list {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
  .sort-item {
      font-size: 13px;
      color: #bcbcbc;
@@ -1558,8 +1565,7 @@
      text-decoration: none;
      border-bottom: 1px dotted #ee3643;
      margin-left: 20px;
-     margin-right: 45px;
-     margin-top: 20px;
+     margin-right: 20px;
      text-transform: uppercase;
      font-family: "PT Sans", "Arial", sans-serif;
 }
@@ -1595,6 +1601,11 @@
 }
  .sort-up-active {
      background: url("../img/icon-up-dir-active.svg") no-repeat;
+     color: #ee3643;
+     fill: #ee3643;
+}
+.sort-down-active {
+     background: url("../img/icon-down-dir-active.svg") no-repeat;
      color: #ee3643;
      fill: #ee3643;
 }
@@ -1674,8 +1685,44 @@
      position: relative;
 }
 
-.product-card-actions .buy {
-     width: 135px;
+.buy {
+     display: block;
+     width: 129px;
+     margin: 0 auto;
+     margin-bottom: 7px;
+     padding: 7px 0;
+     background-color: #63a63e;
+     border: 3px solid #63a63e;
+     border-bottom-color: #367315;
+     border-radius: 3px;
+     color: white;
+     font-size: 14px;
+     font-weight: normal;
+     font-family: "Cuprum", "Arial", sans-serif;
+     line-height: 18px;
+     text-decoration: none;
+     text-transform: uppercase;
+     position: relative;
+}
+
+.product-bookmark {
+     display: block;
+     width: 129px;
+     margin: 0 auto;
+     margin-bottom: 7px;
+     padding: 7px 0;
+     background-color: #63a63e;
+     border: 3px solid #63a63e;
+     border-bottom-color: #367315;
+     border-radius: 3px;
+     color: white;
+     font-size: 14px;
+     font-weight: normal;
+     font-family: "Cuprum", "Arial", sans-serif;
+     line-height: 18px;
+     text-decoration: none;
+     text-transform: uppercase;
+     position: relative;
 }
 
 .product-card-actions .buy:before {
@@ -2276,3 +2323,14 @@ th, td {
      background: rgba(255, 0, 0, .3);
      color: red;
    }
+
+.bookmarks-buttons {
+     display: flex;
+     justify-content: space-around;
+}
+
+.modal-cart-text-error {
+     padding-left: 0px;
+     background: none;
+     margin-bottom: -60px;
+}

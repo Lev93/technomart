@@ -1,0 +1,46 @@
+<div class="wrapper">
+  <h1>Закладки</h1>
+  {{#if items.length}}
+  <table class="cart">
+    <thead>
+      <tr>
+        <th>Название</th>
+        <th>Цена за ед.</th>
+        <th>Действия</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      {{#each items}}
+      <tr>
+        <td>
+          <a class="user-block-link" href="/catalog/{{this._id}}">{{this.title}}</a>
+        </td>
+        <td>{{this.discountPrice}}</td>
+        <td class="bookmarks-buttons">
+          <form action="/bookmarks/remove" method="POST">
+            <input type="hidden" name="id" value="{{this._id}}">
+            <input type="hidden" name="_csrf" value="{{@root.csrf}}">
+            <button class="admin-button">Удалить закладку</button>
+          </form>
+          <button type="button" class="buy" data-id="{{this._id}}" data-csrf="{{@root.csrf}}">Купить</button>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+{{else}}
+  <p>Закладок пока нет</p>
+{{/if}}
+</div>
+    <div class="modal-cart popup">
+        <button class="popup-close modal-cart-close"><span class="visually-hidden">закрыть</span></button>
+        <div class="modal-cart-content">
+            <p class="modal-cart-text">Товар добавлен в корзину!</p>
+        </div>
+        <div class="modal-cart-footer">
+            <a class="modal-cart-btn" href="/cart">Оформить заказ</a>
+            <a class="modal-cart-close-btn" href="#">Продолжить покупки</a>
+        </div>
+    </div>
