@@ -8,9 +8,16 @@
                     <input class="search-field" id="search-field" type="search" name="search" placeholder="Поиск:">
                     <button class="search-submit" id="search-submit" type="submit" aria-hidden="true"><span class="visually-hidden">Поиск</span></button>
                 </form>
+                <div class="search-results">
+                  <ul class="search-results-ul">
+                  </ul>
+                </div>
                 <a class="bookmark" href="/bookmarks">Закладки:&nbsp;<span class="bookmarkspan">{{bookmarks}}</span></a>
                 <a class="basket" href="/cart">Корзина:&nbsp;<span class="count">{{cart}}</span></a>
-                <a class="order" href="#">Оформить заказ</a>
+                <form action="/orders" method="POST">
+                  <input type="hidden" name="_csrf" value="{{csrf}}">
+                  <button type="submit" class="order">Оформить заказ</button>
+                </form>
             </div>
         </div>
         <div class="header-middle wrapper">

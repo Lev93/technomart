@@ -9,10 +9,14 @@ const exphbs = require('express-handlebars');
 const session = require('express-session');
 const MongoStore = require('connect-mongodb-session')(session);
 const homeRoutes = require('./routes/home');
+const deliveryRoutes = require('./routes/delivery');
 const catalogRoutes = require('./routes/catalog');
+const contactsRoutes = require('./routes/contacts');
+const companyRoutes = require('./routes/company');
 const cartRoutes = require('./routes/cart');
 const ordersRoutes = require('./routes/orders');
 const authRoutes = require('./routes/auth');
+const searchRoutes = require('./routes/search');
 const profileRoutes = require('./routes/profile');
 const bookMarksRoutes = require('./routes/bookmarks');
 const varMiddleware = require('./middleware/variables');
@@ -61,6 +65,10 @@ app.use('/orders', ordersRoutes);
 app.use('/auth', authRoutes);
 app.use('/profile', profileRoutes);
 app.use('/bookmarks', bookMarksRoutes);
+app.use('/delivery', deliveryRoutes);
+app.use('/contacts', contactsRoutes);
+app.use('/company', companyRoutes);
+app.use('/search', searchRoutes);
 
 app.use(errorHandler);
 

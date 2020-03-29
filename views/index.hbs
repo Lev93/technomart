@@ -6,19 +6,19 @@
                     <li class="promo-item materials">
                         <div class="flag flag-new"></div>
                         <h3 class="promo-header">Материалы</h3>
-                        <a class="link-promo">
+                        <a class="link-promo" href="/catalog?category=материал">
                      На любой вкус
                      </a>
                     </li>
                     <li class="promo-item tool">
                         <h3 class="promo-header">Инструмент</h3>
-                        <a class="link-promo">
+                        <a class="link-promo" href="/catalog?category=инструмент">
                      На все случаи
                      </a>
                     </li>
                     <li class="promo-item equipment">
                         <h3 class="promo-header">Техника</h3>
-                        <a class="link-promo">
+                        <a class="link-promo" href="/catalog?category=техника">
                      Для стройки
                      </a>
                     </li>
@@ -31,12 +31,12 @@
                         <li class="slider-item drell is-active">
                             <h3 class="promo-header-slide">ДРЕЛИ</h3>
                             <p class="features-slide-text">Соседям на радость!</p>
-                            <a class="button-link" href="/catalog">открыть каталог</a>
+                            <a class="button-link" href="/catalog?category=дрель">открыть каталог</a>
                         </li>
                         <li class="slider-item perforator">
                             <h3 class="promo-header-slide">ПЕРФОРАТОРЫ</h3>
                             <p class="features-slide-text">Настоящие мужские игрушки</p>
-                            <a href="#" class="button-link">открыть каталог</a>
+                            <a href="/catalog?category=перфоратор" class="button-link">открыть каталог</a>
                         </li>
                     </ul>
                     <ul class="slider-control">
@@ -57,13 +57,13 @@
                 <ul class="actions">
                     <li class="promo-item discount">
                         <h3 class="promo-header">Скидки 50%</h3>
-                        <a class="link-promo">
+                        <a class="link-promo" href="/catalog">
                      На 350 товаров
                      </a>
                     </li>
                     <li class="promo-item delivery">
                         <h3 class="promo-header">Доставка</h3>
-                        <a class="link-promo">
+                        <a class="link-promo" href="/delivery">
                      Бесплатно
                      </a>
                     </li>
@@ -73,88 +73,60 @@
         <section class="popular-products wrapper">
             <div class="index-header">
                 <h2 class="index-header-title">Популярные товары:</h2>
-                <a href="#" class="index-header-btn">Все популярные товары</a>
+                <a href="/catalog" class="index-header-btn">Все популярные товары</a>
             </div>
             <div class="products">
-                <article class="product-card margin-right">
+              {{#if items.length}}
+                {{#each items}}
+                  <article class="product-card">
+                    {{#if new}}
+                      <div class="flag-new"></div>
+                    {{/if}}
                     <div class="product-card-actions">
-                        <a href="#" class="buy">Купить</a>
-                        <a href="#" class="product-bookmark">В закладки</a>
-                    </div>
-                    <div class="product-card-image ">
-                        <img src="img/product_001.jpg" alt="Перфоратор BOSCH BFG 9000" width="218" height="170">
-                    </div>
-                    <h3 class="product-card-title">Перфоратор BOSCH BFG 9000</h3>
-                    <div class="product-card-discount">32500 р.</div>
-                    <div class="product-card-price">25500 р.</div>
-                </article>
-                <article class="product-card margin-right">
-                    <div class="product-card-actions">
-                        <a href="#" class="buy">Купить</a>
-                        <a href="#" class="product-bookmark">В закладки</a>
-                    </div>
-                    <div class="product-card-image">
-                        <img src="img/product_002.jpg" alt="Перфоратор BOSCH BFG 3000" width="218" height="170">
-                    </div>
-                    <h3 class="product-card-title">Перфоратор BOSCH BFG 3000</h3>
-                    <div class="product-card-discount">22500 р.</div>
-                    <div class="product-card-price">15500 р.</div>
-                </article>
-                <article class="product-card margin-right">
-                    <div class="product-card-actions">
-                        <a href="#" class="buy">Купить</a>
-                        <a href="#" class="product-bookmark">В закладки</a>
-                    </div>
-                    <div class="product-card-image">
-                        <img src="img/product_003.jpg" alt="Перфоратор BOSCH BFG 6000" width="218" height="170">
-                    </div>
-                    <h3 class="product-card-title">Перфоратор BOSCH BFG 6000</h3>
-                    <div class="product-card-discount">30500 р.</div>
-                    <div class="product-card-price">25500 р.</div>
-                </article>
-                <article class="product-card flag-new margin-right">
-                    <div class="flag-new"></div>
-                    <div class="product-card-actions">
-                        <a href="#" class="buy">Купить</a>
-                        <a href="#" class="product-bookmark">В закладки</a>
-                    </div>
-                    <div class="product-card-image">
-                        <img src="img/product_002.jpg" alt="Перфоратор BOSCH BFG 2000" width="218" height="170">
-                    </div>
-                    <h3 class="product-card-title">Перфоратор BOSCH BFG 2000</h3>
-                    <div class="product-card-discount"></div>
-                    <div class="product-card-price">12500 р.</div>
-                </article>
+                      <button type="button" class="buy" data-id="{{id}}" data-csrf="{{@root.csrf}}">Купить</button>
+                       <button type="button" class="product-bookmark" data-id="{{id}}" data-csrf="{{@root.csrf}}">В закладки</button>
+                     </div>
+                     <div class="product-card-image">
+                       <img src="{{this.img}}" alt="{{this.title}}" width="218" height="170">
+                     </div>
+                       <a href="/catalog/{{id}}" class="product-card-title">{{this.title}}</a>
+                       <div class="product-card-discount">{{this.price}} р.</div>
+                       <div class="product-card-price">{{this.discountPrice}} р.</div>
+                   </article>
+                   {{/each}}
+                  {{else}}
+                  <p class = "page-text">Товары не найдены</p>
+               {{/if}}
             </div>
         </section>
         <section class="popular-brands wrapper">
             <div class="index-header">
                 <h2 class="index-header-title">Популярные производители:</h2>
-                <a href="#" class="index-header-btn">Все производители</a>
+                <a href="/catalog" class="index-header-btn">Все производители</a>
             </div>
             <div class="brands-list">
-                <a class="brands-item" href="#">
+                <a class="brands-item" href="/catalog?production=BOSCH">
                     <img src="img/bosch.jpg" alt="Bosch" width="126" height="37">
                 </a>
-                <a class="brands-item" href="#">
+                <a class="brands-item" href="/catalog?production=MAKITA">
                     <img src="img/makita.jpg" alt="Makita" width="123" height="40">
                 </a>
-                <a class="brands-item" href="#">
+                <a class="brands-item" href="/catalog?production=DEWALT">
                     <img src="img/dewalt.jpg" alt="DeWalt" width="146" height="44">
                 </a>
-                <a class="brands-item" href="#">
+                <a class="brands-item" href="/catalog?production=INTERSCOL">
                     <img src="img/interskol.jpg" alt="Интерскол" width="200" height="88">
                 </a>
-                <a class="brands-item" href="#">
+                <a class="brands-item" href="/catalog?production=HITACHI">
                     <img src="img/hitachi.jpg" alt="Hitachi" width="169" height="31">
                 </a>
-                <a class="brands-item" href="#">
+                <a class="brands-item" href="/catalog?production=LG">
                     <img src="img/lg.jpg" alt="LG" width="121" height="73">
                 </a>
-                <a class="brands-item" href="#">
+                <a class="brands-item" href="/catalog?production=AEG">
                     <img src="img/aeg.jpg" alt="AEG" width="151" height="96">
                 </a>
-                <a class="brands-item" href="#">
+                <a class="brands-item" href="/catalog?production=METABO">
                     <img src="img/metabo.jpg" alt="Metabo" width="204" height="69">
                 </a>
             </div>
@@ -197,7 +169,7 @@
                                 Залезть в долговую яму стало проще!
                                 <br> Кредитные консультанты придут вам на помощь.
                             </p>
-                            <a href="#" class="service-slide-btn btn">Отправить заявку</a>
+                            <a href="#" class="service-slide-btn btn" id="credit">Отправить заявку</a>
                         </div>
                     </div>
                 </article>
@@ -217,7 +189,7 @@
                     <li>Автотрейдинг</li>
                     <li>ЖелДорЭкспедиция</li>
                 </ul>
-                <a href="#" class="redbutton-1">Подробнее о компании</a>
+                <a href="/company" class="redbutton-1">Подробнее о компании</a>
             </section>
             <section class="contacts">
                 <h2>Контакты</h2>
@@ -236,7 +208,7 @@
                 <section class="window-message popup">
                     <h2 class="visually-hidden">Окно для обратной связи</h2>
                     <button class="window-message-close popup-close"><span class="visually-hidden">закрыть</span></button>
-                    <form class="contact-form" action="#" method="post">
+                    <form class="contact-form" action="auth/feedback" method="post">
                         <div class="window-message-content">
                             <label class="contact-form-label" for="name-field">Ваше имя:
                                 <input class="contact-form-item" type="text" name="name" id="name-field" placeholder="Имя Фамилия">
@@ -249,7 +221,8 @@
                             </label>
                         </div>
                         <div class="window-message-bottom">
-                            <button class="submit-button" name="send">Отправить</button>
+                            <input id="csrf" type="hidden" name="_csrf" value="{{csrf}}">
+                            <button type="submit" class="submit-button" name="send">Отправить</button>
                         </div>
                     </form>
                 </section>

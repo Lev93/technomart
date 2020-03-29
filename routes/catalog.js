@@ -28,12 +28,16 @@ const isAdmin = (req) => {
 };
 
 router.get('/', async (req, res) => {
-  const { category } = req.query;
+  const { category, production } = req.query;
   const filter = {};
   if (category === 'инструмент') {
     filter.type = ['перфоратор', 'дрель', 'болгарка'];
   } else if (category) {
     filter.type = category;
+  }
+  if (production) {
+    filter.production = production;
+    filter.type = ['перфоратор', 'дрель', 'болгарка'];
   }
   const length = await Item.countDocuments({ ...filter });
   await Item.find({ ...filter }).limit(9).populate('userId', 'email name')
@@ -52,16 +56,26 @@ router.get('/', async (req, res) => {
       };
 
       const object = {
-        main: req.query.category ? false : true,
-        tools: req.query.category === 'инструмент' ? true : false,
-        materials: req.query.category === 'материал' ? true : false,
-        tech: req.query.category === 'техника' ? true : false,
-        perforator: req.query.category === 'перфоратор' ? true : false,
-        drell: req.query.category === 'дрель' ? true : false,
-        bolgarka: req.query.category === 'болгарка' ? true : false,
+        main: category ? false : true,
+        tools: category === 'инструмент' ? true : false,
+        materials: category === 'материал' ? true : false,
+        tech: category === 'техника' ? true : false,
+        perforator: category === 'перфоратор' ? true : false,
+        drell: category === 'дрель' ? true : false,
+        bolgarka: category === 'болгарка' ? true : false,
         firstpage: length < 9 ? false : true,
         secondpage: length > 9 ? true : false,
         thirdpage: length > 18 ? true : false,
+        bosch: production === 'BOSCH',
+        interscol: production === 'INTERSCOL',
+        makita: production === 'MAKITA',
+        dewalt: production === 'DEWALT',
+        hitachi: production === 'HITACHI',
+        lg: production === 'LG',
+        aeg: production === 'AEG',
+        metabo: production === 'METABO',
+        minprice: 1000,
+        maxprice: 35000,
       };
       res.render('catalog', {
         items: context.usersDocuments,
@@ -73,13 +87,16 @@ router.get('/', async (req, res) => {
         category,
         pagenumber: 1,
         firstpageactive: true,
+        title: 'Каталог',
       });
     });
 });
 
-router.post('/filter', auth, async (req, res) => {
+router.post('/filter', async (req, res) => {
   console.log(req.body);
-  const { production, power, prices, sorttype, category, pagenumber } = req.body;
+  const {
+    production, power, prices, sorttype, category, pagenumber,
+  } = req.body;
   const price = prices.split('-').map((str) => str.trim().slice(4));
   const filter = {};
   if (category === 'инструмент') {
@@ -108,10 +125,14 @@ router.post('/filter', auth, async (req, res) => {
   if (pagenumber !== '1') {
     skip = 9 * (Number(pagenumber) - 1);
   }
-  const length = await Item.countDocuments({ ...filter });
+  const length = await Item.countDocuments({
+    ...filter,
+    discountPrice: { $lte: maxprice, $gte: minprice },
+  });
   await Item.find({ ...filter, discountPrice: { $lte: maxprice, $gte: minprice } })
     .sort({ ...sortObject }).skip(skip)
-    .limit(9).then((documents) => {
+    .limit(9)
+    .then((documents) => {
       const context = {
         usersDocuments: documents.map((document) => {
           return {

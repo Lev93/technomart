@@ -39,6 +39,7 @@ router.get('/', async (req, res) => {
   res.render('cart', {
     items,
     price: computePrice(items),
+    title: 'Корзина',
   });
 });
 

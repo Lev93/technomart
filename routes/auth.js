@@ -9,6 +9,7 @@ const User = require('../models/user');
 const keys = require('../keys');
 const regEmail = require('../emails/registration');
 const resetEmail = require('../emails/reset');
+const feedbackEmail = require('../emails/feedback');
 const { registerValidators } = require('../utils/validators');
 
 const router = Router();
@@ -169,6 +170,18 @@ router.post('/password', async (req, res) => {
       req.flash('loginError', 'Время жизни токена истекло');
       res.redirect('/auth/login');
     }
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+router.post('/feedback', async (req, res) => {
+  try {
+    const { email, text, name } = req.body;
+
+    await transporter.sendMail(feedbackEmail(name, email, text));
+    console.log(name);
+    res.redirect('/');
   } catch (e) {
     console.log(e);
   }

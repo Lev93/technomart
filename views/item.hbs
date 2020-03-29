@@ -2,9 +2,29 @@
   <h1 class="item-title">{{title}}</h1>
   <div class="item-container">
     <div class="item-foto">
-      <img src={{imgBig1}} alt={{title}} width="150" height="100">
-      <img src={{imgBig2}} alt={{title}} width="150" height="100">
-      <img src={{imgBig3}} alt={{title}} width="150" height="100">
+      <ul class="item-slider">
+        <li class="slider-item-2 is-active">
+          <img src={{imgBig1}} alt={{title}} class="item-img">
+        </li>
+        <li class="slider-item-2">
+          <img src={{imgBig2}} alt={{title}} class="item-img">
+        </li>
+        <li class="slider-item-2">
+          <img src={{imgBig3}} alt={{title}} class="item-img">
+        </li>
+      </ul>
+      <ul class="slider-control-2">
+        <li class="slider-control-item">
+          <button class="slider-control-button-2 is-back" type="button">
+            <span class="visually-hidden">Предыдущий слайд</span>
+          </button>
+        </li>
+        <li class="slider-control-item">
+          <button class="slider-control-button-2 is-next" type="button">
+            <span class="visually-hidden">Следующий слайд</span>
+          </button>
+        </li>
+      </ul>
     </div>
     <div class="item-price">
       <p>Цена в розничной сети: {{price}} р.</p>
