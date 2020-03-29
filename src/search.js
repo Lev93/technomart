@@ -8,9 +8,6 @@ export default () => {
   autocompleteElements.addEventListener('focus', () => {
     div.classList.add('search-results-show');
   });
-  autocompleteElements.addEventListener('blur', () => {
-    div.classList.remove('search-results-show');
-  });
   autocompleteElements.addEventListener('input', async (e) => {
     e.preventDefault();
     const input = e.target.value;
